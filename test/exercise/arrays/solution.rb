@@ -14,7 +14,7 @@ module Exercise
       end
 
       def search(_array, _query)
-        def rec_bin_search(array, query, low, high)
+        rec_bin_search = lambda do |array, query, low, high|
           return -1 if low > high
 
           mid = (low + high) / 2
@@ -22,9 +22,9 @@ module Exercise
           if guess == query
             mid
           elsif guess > query
-            rec_bin_search(array, query, low, mid - 1)
+            rec_bin_search.call(array, query, low, mid - 1)
           else
-            rec_bin_search(array, query, mid + 1, high)
+            rec_bin_search.call(array, query, mid + 1, high)
           end
         end
         if _array.empty?
@@ -32,7 +32,7 @@ module Exercise
         else
           low = 0
           high = _array.length - 1
-          rec_bin_search(_array, _query, low, high)
+          rec_bin_search.call(_array, _query, low, high)
         end
       end
     end
