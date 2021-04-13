@@ -14,7 +14,26 @@ module Exercise
       end
 
       def search(_array, _query)
-        0
+        def rec_bin_search(array, query, low, high)
+          return -1 if low > high
+
+          mid = (low + high) / 2
+          guess = array[mid]
+          if guess == query
+            mid
+          elsif guess > query
+            rec_bin_search(array, query, low, mid - 1)
+          else
+            rec_bin_search(array, query, mid + 1, high)
+          end
+        end
+        if _array.empty?
+          -1
+        else
+          low = 0
+          high = _array.length - 1
+          rec_bin_search(_array, _query, low, high)
+        end
       end
     end
   end
