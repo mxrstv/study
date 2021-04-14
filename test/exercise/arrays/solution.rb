@@ -13,26 +13,26 @@ module Exercise
         array.map { |elem| elem.positive? ? max_elem : elem }
       end
 
-      def search(_array, _query)
-        rec_bin_search = lambda do |array, query, low, high|
+      def search(num_array, query)
+        rec_bin_search = lambda do |a, x, low, high|
           return -1 if low > high
 
           mid = (low + high) / 2
-          guess = array[mid]
-          if guess == query
+          guess = a[mid]
+          if guess == x
             mid
-          elsif guess > query
-            rec_bin_search.call(array, query, low, mid - 1)
+          elsif guess > x
+            rec_bin_search.call(a, x, low, mid - 1)
           else
-            rec_bin_search.call(array, query, mid + 1, high)
+            rec_bin_search.call(a, x, mid + 1, high)
           end
         end
-        if _array.empty?
+        if num_array.empty?
           -1
         else
           low = 0
-          high = _array.length - 1
-          rec_bin_search.call(_array, _query, low, high)
+          high = num_array.length - 1
+          rec_bin_search.call(num_array, query, low, high)
         end
       end
     end
