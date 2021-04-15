@@ -9,10 +9,8 @@ module Exercise
         
         if self[1..].empty?
           yield self.first
-          p "last #{self}"
         else
           yield self.first
-          p "iter #{self}"
           self[1..].my_each(&block)
         end
         
@@ -20,10 +18,18 @@ module Exercise
       end
 
       # Написать свою функцию my_map
-      def my_map; end
+      def my_map
+        result = MyArray.new
+        my_each {|el| result << yield(el)}
+        result
+      end
 
       # Написать свою функцию my_compact
-      def my_compact; end
+      def my_compact
+        result = MyArray.new
+        my_each {|el| result << el unless el.nil?}
+        result
+      end
 
       # Написать свою функцию my_reduce
       def my_reduce; end
