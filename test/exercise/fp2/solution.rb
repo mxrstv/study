@@ -6,33 +6,43 @@ module Exercise
 
       # Написать свою функцию my_each
       def my_each(&block)
-        
-        if self[1..].empty?
-          yield self.first
-        else
-          yield self.first
-          self[1..].my_each(&block)
-        end
-        
+        el = first
+        rest = self[1..-1]
+        yield el
+        rest.my_each(&block) unless rest.empty?
         self
       end
 
       # Написать свою функцию my_map
       def my_map
         result = MyArray.new
-        my_each {|el| result << yield(el)}
+        my_each { |el| result << yield(el) }
         result
       end
 
       # Написать свою функцию my_compact
       def my_compact
         result = MyArray.new
-        my_each {|el| result << el unless el.nil?}
+        my_each { |el| result << el unless el.nil? }
         result
       end
 
       # Написать свою функцию my_reduce
-      def my_reduce; end
+      def my_reduce(init_acc = nil, &block)
+        return init_acc if empty?
+
+        if init_acc.nil?
+          acc = self[0]
+          el = self[1]
+          rest = self[2..-1]
+        else
+          acc = init_acc
+          el = first
+          rest = self[1..-1]
+        end
+        acc = yield(acc, el)
+        rest.my_reduce(acc, &block)
+      end
     end
   end
 end
