@@ -6,10 +6,12 @@ module Exercise
 
       # Написать свою функцию my_each
       def my_each(&block)
+        return if empty?
+
         el = first
         rest = self[1..-1]
         yield el
-        rest.my_each(&block) unless rest.empty?
+        rest.my_each(&block)
         self
       end
 
@@ -32,7 +34,7 @@ module Exercise
         return init_acc if empty?
 
         if init_acc.nil?
-          acc = self[0]
+          acc = first
           el = self[1]
           rest = self[2..-1]
         else
