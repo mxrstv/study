@@ -10,7 +10,7 @@ module Exercise
 
         el = first
         rest = self[1..-1]
-        yield el
+        block.call(el)
         rest.my_each(&block)
         self
       end
@@ -42,7 +42,7 @@ module Exercise
           el = first
           rest = self[1..-1]
         end
-        acc = yield(acc, el)
+        acc = block.call(acc, el)
         rest.my_reduce(acc, &block)
       end
     end
